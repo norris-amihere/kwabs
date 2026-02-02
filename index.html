@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine?</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff5f9e, #ff9a9e, #fad0c4);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Floating hearts animation */
+    @keyframes floatUp {
+      from { transform: translateY(0); }
+      to { transform: translateY(-120vh); }
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      animation-name: floatUp;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      pointer-events: none;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 30px rgba(230, 57, 70, 0.35),
+                  0 15px 40px rgba(0,0,0,0.2);
+      width: 420px;
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .buttons {
+      position: relative;
+      height: 90px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+      transition: all 0.2s ease;
+    }
+
+    .yes {
+      background-color: #e63946;
+      color: white;
+      left: 80px;
+    }
+
+    .no {
+      background-color: #e0e0e0;
+      color: #555;
+      right: 80px;
+    }
+
+    .caption {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Floating hearts container -->
+  <div id="hearts"></div>
+
+  <div class="card" id="card">
+    <h1>will you like to be my Valentine,<br> kwabs? 💖</h1>
+
+    <div class="buttons">
+      <button class="yes" onclick="yesClicked()">Yes 💕</button>
+      <button class="no" id="noBtn">No</button>
+    </div>
+
+    <div class="caption">“No” I am shy 😈</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const card = document.getElementById("card");
+
+    // No button runs away
+    noBtn.addEventListener("mouseenter", () => {
+      const cardRect = card.getBoundingClientRect();
+      const maxX = cardRect.width - noBtn.offsetWidth - 20;
+      const maxY = cardRect.height - noBtn.offsetHeight - 20;
+
+      noBtn.style.left = Math.random() * maxX + "px";
+      noBtn.style.top = Math.random() * maxY + "px";
+    });
+
+    // Floating hearts generation
+    const heartCount = 25;
+
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 14 + "px";
+      heart.style.opacity = Math.random();
+      heart.style.animationDuration = (Math.random() * 5 + 6) + "s";
+      document.body.appendChild(heart);
+    }
+
+    // Yes button action
+    function yesClicked() {
+      card.innerHTML = `
+        <p style="
+          font-size: 16px;
+          line-height: 1.6;
+          color: #444;
+          margin-bottom: 20px;
+        ">🥰❤️<br>
+         Here's to forever with you!!
+        </p>
+        <img src="cheers-fireworks.gif" alt="cheers">
+      `;
+    }
+  </script>
+
+</body>
+</html>
